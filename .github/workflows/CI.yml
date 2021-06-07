@@ -11,10 +11,10 @@ jobs:
           fetch-depth: 1
           submodules: true
 
-      - uses: actions/upload-artifact@master
-        with:
-          name: webpack artifacts
-          path: public/
+      # - uses: actions/upload-artifact@master
+      #   with:
+      #     name: webpack artifacts
+      #     path: public/
 
       - name: "Run CMake with VS16"
         uses: lukka/run-cmake@v2
@@ -35,10 +35,10 @@ jobs:
           fetch-depth: 1
           submodules: true
 
-      - uses: actions/upload-artifact@master
-        with:
-          name: webpack artifacts
-          path: public/
+      # - uses: actions/upload-artifact@master
+      #   with:
+      #     name: webpack artifacts
+      #     path: public/
 
       - name: "Run CMake with MingW-64"
         uses: lukka/run-cmake@v2
@@ -59,10 +59,10 @@ jobs:
           fetch-depth: 1
           submodules: true
 
-      - uses: actions/upload-artifact@master
-        with:
-          name: webpack artifacts
-          path: public/
+      # - uses: actions/upload-artifact@master
+      #   with:
+      #     name: webpack artifacts
+      #     path: public/
 
       - name: "Run CMake with GCC"
         uses: lukka/run-cmake@v2

@@ -4,6 +4,7 @@
 #include <algorithm>
 
 #include <glm/vec3.hpp>
+#include <yaml-cpp/yaml.h>
 
 #include "Scene.h"
 #include "Camera.h"

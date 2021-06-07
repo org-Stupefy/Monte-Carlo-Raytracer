@@ -56,3 +56,4 @@ bin/
 
 #Tmporary files
 scenes/
+.github/workflows/
