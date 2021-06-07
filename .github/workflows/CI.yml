@@ -1,0 +1,95 @@
+name: CI and CD
+
+on: [push, pull_request]
+
+jobs:
+  Build-Windows-MSVC:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          submodules: true
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: webpack artifacts
+          path: public/
+
+      - name: "Run CMake with VS16"
+        uses: lukka/run-cmake@v2
+        with:
+          cmakeListsOrSettingsJson: CMakeListsTxtAdvanced
+          cmakeListsTxtPath: "${{ github.workspace }}/CMakeLists.txt"
+          buildDirectory: "${{ github.workspace }}/../../_temp/windows"
+          cmakeBuildType: Release
+          buildWithCMake: true
+          cmakeGenerator: VS16Win64
+          buildWithCMakeArgs: --config Release
+
+  Build-Windows-MingW64:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          submodules: true
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: webpack artifacts
+          path: public/
+
+      - name: "Run CMake with MingW-64"
+        uses: lukka/run-cmake@v2
+        with:
+          cmakeListsOrSettingsJson: CMakeListsTxtAdvanced
+          cmakeListsTxtPath: "${{ github.workspace }}/CMakeLists.txt"
+          buildDirectory: "${{ github.workspace }}/../../_temp/windows"
+          cmakeBuildType: Release
+          buildWithCMake: true
+          cmakeAppendedArgs: '-G"Unix Makefiles"'
+          buildWithCMakeArgs: --config Release
+
+  Build-Ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          submodules: true
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: webpack artifacts
+          path: public/
+
+      - name: "Run CMake with GCC"
+        uses: lukka/run-cmake@v2
+        with:
+          cmakeListsOrSettingsJson: CMakeListsTxtAdvanced
+          cmakeListsTxtPath: "${{ github.workspace }}/CMakeLists.txt"
+          buildDirectory: "${{ github.workspace }}/../../_temp/ubuntu"
+          cmakeBuildType: Release
+          buildWithCMake: true
+          cmakeAppendedArgs: '-G"Unix Makefiles"'
+          buildWithCMakeArgs: --config Release
+
+  # Build-and-Push-Docker-Image:
+  #   runs-on: windows-latest
+  #   needs: Build-Windows-MSVC
+  #   name: Build, Tag, Push
+
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v1
+  #     - name: Download built artifact
+  #       uses: actions/download-artifact@master
+  #       with:
+  #         name: webpack artifacts
+  #         path: public
+  #     - name: Build, Tag, Push
+  #       uses: mattdavis0351/actions/docker-gpr@v1
+  #       with:
+  #         repo-token: ${{ secrets.GITHUB_TOKEN }}
+  #         image-name: tic-tac-toe-for-packages # this image-name is changed for the demo

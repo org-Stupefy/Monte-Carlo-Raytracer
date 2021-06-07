@@ -18,7 +18,7 @@ int main()
     std::vector<glm::vec3> sphere_positions;
 
     Scene scene;
-    scene.surfaces.resize(20);
+    scene.surfaces.resize(10);
     std::generate(scene.surfaces.begin(), scene.surfaces.end(), [&sphere_positions]()
                   {
                       glm::vec3 new_pos = glm::vec3(rnd(-.6f, .6f), rnd(-.35f, .35f), rnd(-1.f, -4.5f));
@@ -42,7 +42,7 @@ int main()
 
     Camera camera(glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 36.0f, 35.0f, 960, 540);
 
-    camera.sampleImage(100, scene);
+    camera.sampleImage(10, scene);
     camera.saveImage("image.tga");
 
     return 0;

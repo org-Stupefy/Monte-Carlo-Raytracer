@@ -1,6 +1,7 @@
 #include "Surface.h"
 
 #include <iostream>
+#include <math.h>
 
 bool Surface::Sphere::intersect(const Ray &ray, Intersection &intersection) const
 {
